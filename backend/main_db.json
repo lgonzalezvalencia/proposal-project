@@ -1,10 +1,474 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "User API",
+    "title": "Main Database API",
+    "description": "API for managing users, instances, templates, and template outputs in the main database.",
     "version": "1.0.0"
   },
-  "paths": {},
+  "tags": [
+    {
+      "name": "User Management",
+      "description": "Operations related to user management"
+    },
+    {
+      "name": "Instance Management",
+      "description": "Operations related to instance management"
+    },
+    {
+      "name": "Template Management",
+      "description": "Operations related to template management"
+    },
+    {
+      "name": "Template Output Management",
+      "description": "Operations related to template output"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "tags": ["User Management"],
+        "summary": "Get all users",
+        "operationId": "getUsers",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/user" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["User Management"],
+        "summary": "Create a new user",
+        "operationId": "createUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/user" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/user" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": ["User Management"],
+        "summary": "Get user by ID",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/user" }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["User Management"],
+        "summary": "Update user by ID",
+        "operationId": "updateUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/user" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/user" }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/instance": {
+      "get": {
+        "tags": ["Instance Management"],
+        "summary": "Get all instances",
+        "operationId": "getInstances",
+        "responses": {
+          "200": {
+            "description": "A list of instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/instance" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Instance Management"],
+        "summary": "Create a new instance",
+        "operationId": "createInstance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/instance" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Instance created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/instance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/instance/{id}": {
+      "get": {
+        "tags": ["Instance Management"],
+        "summary": "Get instance by ID",
+        "operationId": "getInstanceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Instance details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/instance" }
+              }
+            }
+          },
+          "404": {
+            "description": "Instance not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Instance Management"],
+        "summary": "Update instance by ID",
+        "operationId": "updateInstanceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/instance" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Instance updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/instance" }
+              }
+            }
+          },
+          "404": {
+            "description": "Instance not found"
+          }
+        }
+      }
+    },
+    "/template": {
+      "get": {
+        "tags": ["Template Management"],
+        "summary": "Get all templates",
+        "operationId": "getTemplates",
+        "responses": {
+          "200": {
+            "description": "A list of templates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/template" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Template Management"],
+        "summary": "Create a new template",
+        "operationId": "createTemplate",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/template" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Template created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/template" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/template/{id}": {
+      "get": {
+        "tags": ["Template Management"],
+        "summary": "Get template by ID",
+        "operationId": "getTemplateById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/template" }
+              }
+            }
+          },
+          "404": {
+            "description": "Template not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Template Management"],
+        "summary": "Update template by ID",
+        "operationId": "updateTemplateById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/template" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Template updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/template" }
+              }
+            }
+          },
+          "404": {
+            "description": "Template not found"
+          }
+        }
+      }
+    },
+    "/template_output": {
+      "get": {
+        "tags": ["Template Output Management"],
+        "summary": "Get all template outputs",
+        "operationId": "getTemplateOutputs",
+        "responses": {
+          "200": {
+            "description": "A list of template outputs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/template_output" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Template Output Management"],
+        "summary": "Create a new template output",
+        "operationId": "createTemplateOutput",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/template_output" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Template output created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/template_output" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/template_output/{id}": {
+      "get": {
+        "tags": ["Template Output Management"],
+        "summary": "Get template output by ID",
+        "operationId": "getTemplateOutputById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template output details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/template_output" }
+              }
+            }
+          },
+          "404": {
+            "description": "Template output not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Template Output Management"],
+        "summary": "Update template output by ID",
+        "operationId": "updateTemplateOutputById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/template_output" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Template output updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/template_output" }
+              }
+            }
+          },
+          "404": {
+            "description": "Template output not found"
+          }
+        }
+      }
+    }
+  },
   "components": {
     "schemas": {
       "instance": {
@@ -18,7 +482,7 @@
             "type": "string"
           },
           "template_id": {
-            "type": "int",
+            "type": "integer",
             "format": "int64"
           },
           "edited_data": {
@@ -26,13 +490,22 @@
             "items": { "type": "string" }
           },
           "createdAt": {
-            "type": "date-time"
+            "type": "string",
+            "format": "date-time"
           },
           "lastModified": {
-            "type": "date-time"
+            "type": "string",
+            "format": "date-time"
           }
         },
-        "required": true
+        "required": [
+          "id",
+          "username",
+          "template_id",
+          "edited_data",
+          "createdAt",
+          "lastModified"
+        ]
       },
       "user": {
         "type": "object",
@@ -45,20 +518,30 @@
             "type": "string"
           },
           "password": {
-            "type": "password"
+            "type": "string",
+            "format": "password"
           },
           "email": {
             "type": "string",
             "format": "email"
           },
           "createdAt": {
-            "type": "date-time"
+            "type": "string",
+            "format": "date-time"
           },
           "lastModified": {
-            "type": "date-time"
+            "type": "string",
+            "format": "date-time"
           }
         },
-        "required": true
+        "required": [
+          "id",
+          "username",
+          "password",
+          "email",
+          "createdAt",
+          "lastModified"
+        ]
       },
       "template": {
         "type": "object",
@@ -74,13 +557,21 @@
             "type": "string"
           },
           "createdAt": {
-            "type": "date-time"
+            "type": "string",
+            "format": "date-time"
           },
           "lastModified": {
-            "type": "date-time"
+            "type": "string",
+            "format": "date-time"
           }
         },
-        "required": true
+        "required": [
+          "id",
+          "file_location",
+          "file_url",
+          "createdAt",
+          "lastModified"
+        ]
       },
       "template_output": {
         "type": "object",
@@ -93,7 +584,7 @@
             "type": "string"
           },
           "template_id": {
-            "type": "int",
+            "type": "integer",
             "format": "int64"
           },
           "file_location": {
@@ -104,13 +595,23 @@
           },
 
           "createdAt": {
-            "type": "date-time"
+            "type": "string",
+            "format": "date-time"
           },
           "lastModified": {
-            "type": "date-time"
+            "type": "string",
+            "format": "date-time"
           }
         },
-        "required": true
+        "required": [
+          "file_location",
+          "file_url",
+          "createdAt",
+          "lastModified",
+          "id",
+          "username",
+          "template_id"
+        ]
       }
     }
   }
