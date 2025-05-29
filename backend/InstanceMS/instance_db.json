@@ -1,0 +1,167 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Instance Database API",
+    "description": "API for managing instances",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Instance Management",
+      "description": "Operations related to instance management"
+    }
+  ],
+  "paths": {
+    "/instance": {
+      "get": {
+        "tags": ["Instance Management"],
+        "summary": "Get all instances",
+        "operationId": "getInstances",
+        "responses": {
+          "200": {
+            "description": "A list of instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/instance" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Instance Management"],
+        "summary": "Create a new instance",
+        "operationId": "createInstance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/instance" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Instance created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/instance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/instance/{id}": {
+      "get": {
+        "tags": ["Instance Management"],
+        "summary": "Get instance by ID",
+        "operationId": "getInstanceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Instance details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/instance" }
+              }
+            }
+          },
+          "404": {
+            "description": "Instance not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Instance Management"],
+        "summary": "Update instance by ID",
+        "operationId": "updateInstanceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/instance" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Instance updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/instance" }
+              }
+            }
+          },
+          "404": {
+            "description": "Instance not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "instance": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "template_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "edited_data": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "template_id",
+          "edited_data",
+          "createdAt",
+          "lastModified"
+        ]
+      }
+    }
+  }
+}
