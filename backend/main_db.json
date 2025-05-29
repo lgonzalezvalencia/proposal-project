@@ -1,0 +1,117 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "User API",
+    "version": "1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "instance": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "template_id": {
+            "type": "int",
+            "format": "int64"
+          },
+          "edited_data": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "createdAt": {
+            "type": "date-time"
+          },
+          "lastModified": {
+            "type": "date-time"
+          }
+        },
+        "required": true
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "password"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "createdAt": {
+            "type": "date-time"
+          },
+          "lastModified": {
+            "type": "date-time"
+          }
+        },
+        "required": true
+      },
+      "template": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "file_location": {
+            "type": "string"
+          },
+          "file_url": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "date-time"
+          },
+          "lastModified": {
+            "type": "date-time"
+          }
+        },
+        "required": true
+      },
+      "template_output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "template_id": {
+            "type": "int",
+            "format": "int64"
+          },
+          "file_location": {
+            "type": "string"
+          },
+          "file_url": {
+            "type": "string"
+          },
+
+          "createdAt": {
+            "type": "date-time"
+          },
+          "lastModified": {
+            "type": "date-time"
+          }
+        },
+        "required": true
+      }
+    }
+  }
+}
