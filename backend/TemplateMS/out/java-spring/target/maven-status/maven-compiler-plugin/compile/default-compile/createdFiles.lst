@@ -1,0 +1,8 @@
+org\openapitools\api\TemplateApiController.class
+org\openapitools\model\Template.class
+org\openapitools\OpenApiGeneratorApplication.class
+org\openapitools\api\ApiUtil.class
+org\openapitools\RFC3339DateFormat.class
+org\openapitools\api\TemplateApi.class
+org\openapitools\configuration\SpringDocConfiguration.class
+org\openapitools\configuration\HomeController.class

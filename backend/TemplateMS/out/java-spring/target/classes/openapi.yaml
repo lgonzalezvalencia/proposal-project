@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  description: API for managing templates.
+  title: Template Database API
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- description: Operations related to template management
+  name: Template Management
+paths:
+  /template:
+    get:
+      operationId: getTemplates
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/template'
+                type: array
+          description: A list of templates
+      summary: Get all templates
+      tags:
+      - Template Management
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Template Management
+    post:
+      operationId: createTemplate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/template'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/template'
+          description: Template created successfully
+      summary: Create a new template
+      tags:
+      - Template Management
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Template Management
+  /template/{id}:
+    get:
+      operationId: getTemplateById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/template'
+          description: Template details
+        "404":
+          description: Template not found
+      summary: Get template by ID
+      tags:
+      - Template Management
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Template Management
+    put:
+      operationId: updateTemplateById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/template'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/template'
+          description: Template updated successfully
+        "404":
+          description: Template not found
+      summary: Update template by ID
+      tags:
+      - Template Management
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Template Management
+components:
+  schemas:
+    template:
+      example:
+        file_url: file_url
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        file_location: file_location
+        id: 0
+        lastModified: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          format: int64
+          type: integer
+        file_location:
+          type: string
+        file_url:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        lastModified:
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - file_location
+      - file_url
+      - id
+      - lastModified
+      type: object
